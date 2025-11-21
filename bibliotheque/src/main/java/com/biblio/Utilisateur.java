@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateur {
-    // ... (Champs existants : prenom, nom, etc.)
     private String prenom;
     private String nom;
     private String email;
     private String dateNaissance;
     private int cout;
     private Abonnement abonnement;
-    private boolean supprime = false; // Ajout du flag
+    private boolean supprime = false;
 
     private List<Emprunt> emprunts = new ArrayList<>();
 
@@ -29,7 +28,7 @@ public class Utilisateur {
         this.abonnement = abo;
     }
 
-    // ... Getters existants ...
+    // ... Getters ...
     public String getPrenom() { return prenom; }
     public String getNom() { return nom; }
     public String getEmail() { return email; }

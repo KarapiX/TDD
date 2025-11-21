@@ -36,6 +36,8 @@ public class Bibliotheque {
     public List<Utilisateur> getUtilisateurs() { return utilisateurs; }
     public List<Livre> getLivres() { return livres; }
     public List<Abonnement> getAbonnements() { return abonnements; }
+
+
     // Méthode d'affichage
     public String listerAbonnements() {
         if (abonnements.isEmpty()) return "Aucun abonnement disponible.";
@@ -44,14 +46,14 @@ public class Bibliotheque {
                 .map(Abonnement::toString)
                 .collect(Collectors.joining("\n"));
     }
-    // Méthode d'affichage
+
     public String listerLivres() {
         if (livres.isEmpty()) return "Bibliothèque vide.";
         return livres.stream()
                 .map(Livre::toString)
                 .collect(Collectors.joining("\n"));
     }
-    // Méthode d'affichage
+
 
     public String listerUtilisateurs() {
         if (utilisateurs.isEmpty()) return "Aucun utilisateur inscrit.";

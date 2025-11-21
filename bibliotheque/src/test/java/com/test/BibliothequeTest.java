@@ -48,7 +48,7 @@ public class BibliothequeTest {
 
         biblio.ajouterLivre(livre);
 
-        assertEquals(1, biblio.getLivres().size()); // Nécessite le getter getLivres()
+        assertEquals(1, biblio.getLivres().size());
         // On vérifie aussi que c'est bien CE livre qui est dedans
         assertEquals("Le Petit Prince", biblio.getLivres().get(0).getTitre());
     }
@@ -214,7 +214,6 @@ public class BibliothequeTest {
         Livre livreFantome = new Livre("Livre Interdit", "Inconnu", 10);
 
         // 3. Tentative d'emprunt via la bibliothèque
-        // Cette méthode n'existe pas encore, on va la créer juste après
         boolean resultat = biblio.emprunterLivre(u, livreFantome);
 
         // 4. Vérifications

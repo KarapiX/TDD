@@ -25,8 +25,6 @@ public class Livre {
     public boolean isSupprime() { return supprime; }
 
     public void modifierLivre(String titre, String auteur, int stockTotal) {
-        // Attention : changer le stock total reset le dispo dans cet exemple simple
-        // Dans une vraie app, il faudrait gérer la différence.
         this.titre = titre;
         this.auteur = auteur;
         this.stockTotal = stockTotal;
