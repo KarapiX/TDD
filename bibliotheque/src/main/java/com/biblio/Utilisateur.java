@@ -18,7 +18,9 @@ public class Utilisateur {
     private List<Emprunt> emprunts = new ArrayList<>();
 
     public Utilisateur(String prenom, String nom, String email, String dateNaissance, int cout, Abonnement abo) {
-        // (Attention: Le test 'Doublon' ne peut pas fonctionner ici sans base de données ou liste statique)
+        if (cout < 0) {
+            throw new IllegalArgumentException("Le coût ne peut pas être négatif.");
+        }
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -30,7 +32,6 @@ public class Utilisateur {
     // ... Getters existants ...
     public String getPrenom() { return prenom; }
     public String getNom() { return nom; }
-
     public String getEmail() { return email; }
     public String getDateNaissance() { return dateNaissance; }
     public int getCout() { return cout; }

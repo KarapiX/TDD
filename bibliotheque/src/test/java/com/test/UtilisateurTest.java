@@ -100,7 +100,7 @@ public class UtilisateurTest {
         assertEquals(4, livre.getExemplairesDispo());
         assertEquals(1, user.getEmprunts().size());
 
-        // Action : L'utilisateur rend le livre (Méthode à créer !)
+        // Action : L'utilisateur rend le livre
         boolean retourEffectue = user.rendreLivre(livre);
 
         // Vérifications après retour
@@ -113,7 +113,6 @@ public class UtilisateurTest {
     void testEmprunterNull() {
         // Vérifier que le système ne crash pas si on passe null
         assertFalse(user.emprunterLivre(null));
-        // Ou assertThrows(NullPointerException.class...) selon ta politique
     }
     @Test
     void testEmprunterMemeLivreDeuxFois() {
@@ -153,6 +152,45 @@ public class UtilisateurTest {
 
 
     }
+
+    @Test
+    void testCoutNegatifUtilisateur() {
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Utilisateur("Jean", "Paul", "jean@mail.com", "01/01/2000", -5, abo);
+        });
+
+
+        assertEquals("Le coût ne peut pas être négatif.", exception.getMessage());
+    }
+
+    @Test
+    void testPrixAbonnementNegatif() {
+        // On vérifie que la création d'un abonnement avec un prix de -10.0 lance une exception
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Abonnement("Abonnement Bug", -10.0, 5, 30);
+        });
+
+        // Vérification du message d'erreur
+        assertEquals("Le prix de l'abonnement ne peut pas être négatif.", exception.getMessage());
+    }
+    @Test
+    void testMaxEmpruntsNegatif() {
+        // Vérifie qu'on ne peut pas mettre un nombre max d'emprunts négatif
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Abonnement("Test", 10.0, -1, 30);
+        });
+        assertEquals("Le nombre maximum d'emprunts ne peut pas être négatif.", exception.getMessage());
+    }
+
+    @Test
+    void testDureeEmpruntsNegatif() {
+        // Vérifie qu'on ne peut pas mettre une durée négative
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Abonnement("Test", 10.0, 5, -7);
+        });
+        assertEquals("La durée d'emprunt ne peut pas être négative.", exception.getMessage());
+    }
     @Test
     void testModificationtilisateur() {
         // Test getPrenom, getNom et modifierUtilisateur
@@ -191,7 +229,41 @@ public class UtilisateurTest {
         assertEquals(10, a.getMaxEmprunts());
         assertEquals(30, a.getDureeEmprunts());
     }
+    @Test
+    void testModificationPrixNegatif() {
+        Abonnement a = new Abonnement("Base", 5.0, 1, 7);
 
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            // On essaie de passer le prix à -5
+            a.modifierAbonnement("Super", -5.0, 10, 30);
+        });
+
+        assertEquals("Le prix de l'abonnement ne peut pas être négatif.", exception.getMessage());
+    }
+
+    @Test
+    void testModificationMaxEmpruntsNegatif() {
+        Abonnement a = new Abonnement("Base", 5.0, 1, 7);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            // On essaie de passer le max emprunts à -2
+            a.modifierAbonnement("Super", 15.0, -2, 30);
+        });
+
+        assertEquals("Le nombre maximum d'emprunts ne peut pas être négatif.", exception.getMessage());
+    }
+
+    @Test
+    void testModificationDureeNegatif() {
+        Abonnement a = new Abonnement("Base", 5.0, 1, 7);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            // On essaie de passer la durée à -3
+            a.modifierAbonnement("Super", 15.0, 10, -3);
+        });
+
+        assertEquals("La durée d'emprunt ne peut pas être négative.", exception.getMessage());
+    }
     @Test
     void testEtatSuppressionAbonnement() {
         // 1. Setup
